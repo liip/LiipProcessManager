@@ -121,9 +121,9 @@ class PidFile
      */
     public function releaseLock()
     {
-        @unlink($this->file);
         flock($this->file, LOCK_UN);
         fclose($this->file);
+        @unlink($this->file);
         $this->file = null;
     }
 }
