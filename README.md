@@ -3,6 +3,10 @@ ProcessManager
 
 Provides a simple locking mechanism based on UNIX process id's written to a "PID file".
 
+[![Build Status](https://secure.travis-ci.org/liip/LiipProcessManager.png)](http://travis-ci.org/liip/LiipProcessManager)
+
+http://github.com/liip/LiipProcessManager.git
+
 Here is a simple example
 
     use Liip\ProcessManager\ProcessManager;
