@@ -4,4 +4,6 @@ php:
   - 5.3
   - 5.4
 
+before_script: sudo apt-get install php5-xdebug -y
+
 script: phpunit --coverage-text
