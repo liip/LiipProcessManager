@@ -5,3 +5,7 @@ php:
   - 5.4
 
 script: phpunit --coverage-text
+
+notifications:
+  email:
+    - travis-ci@liip.ch
