@@ -1,0 +1,24 @@
+{
+    "name": "liip/process",
+    "type": "library",
+    "description": "Provides a simple locking mechanism based on UNIX process id's written to a PID file.",
+    "keywords": ["pid", "locking", "unix"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Liip AG",
+            "homepage": "http://www.liip.ch/"
+        },
+        {
+            "name": "Community contributions",
+            "homepage": "https://github.com/liip/LiipThemeBundle/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": { "Liip\\Process": "" }
+    },
+    "target-dir": "Liip/Process"
+}
