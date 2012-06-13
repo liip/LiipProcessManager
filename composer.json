@@ -1,5 +1,5 @@
 {
-    "name": "liip/process",
+    "name": "liip/process-manager",
     "type": "library",
     "description": "Provides a simple locking mechanism based on UNIX process id's written to a PID file.",
     "keywords": ["pid", "locking", "unix"],
