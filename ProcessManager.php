@@ -25,7 +25,7 @@ class ProcessManager
      */
     public function __construct($log = '/dev/null')
     {
-		$this->log = $log;
+        $this->log = $log;
     }
 
     /**
