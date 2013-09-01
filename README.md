@@ -18,8 +18,7 @@ Here is a simple example
     $processManager->killProcess($pid);
 
     // to set log location instead of routing it to /dev/null by default
-    $processManager = new ProcessManager();
-    $processManager->logFile = '/path/to/logfile';
+    $processManager = new ProcessManager('/path/to/logfile');
     $pid = $processManager->execProcess('sleep 10m');
 
     // acquire a lock via a pid file
