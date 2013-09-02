@@ -10,6 +10,24 @@ namespace Liip\ProcessManager;
  */
 class ProcessManager
 {
+
+    /**
+     * Output log location
+     *
+     * @var string
+     */
+    protected $logFile;
+
+    /**
+     * Sets up a new ProcessManager
+     *
+     * @param string $log Location to output log file
+     */
+    public function __construct($logFile = '/dev/null')
+    {
+        $this->logFile = $logFile;
+    }
+
     /**
      * Exec a command in the background and return the PID
      *
@@ -22,7 +40,7 @@ class ProcessManager
         // The double & in the command "(.... &)&" will have the same effect as nohup
         // but the pid returned is actually the correct pid (which is not the case when
         // using nohup).
-        $command = '(' . $command.' > /dev/null 2>&1 & echo $!)&';
+        $command = '(' . $command.' > ' . $this->logFile . ' 2>&1 & echo $!)&';
         exec($command, $op);
         return (int)$op[0];
     }
@@ -44,7 +62,7 @@ class ProcessManager
      * Kill the currently running process
      *
      * @param string $pid The PID to write to the file
-     * 
+     *
      * @return boolean
      */
     public function killProcess($pid)
