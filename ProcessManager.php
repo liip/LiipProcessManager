@@ -16,16 +16,16 @@ class ProcessManager
      *
      * @var string
      */
-    protected $log = '/dev/null';
+    protected $logFile;
 
     /**
      * Sets up a new ProcessManager
      *
      * @param string $log Location to output log file
      */
-    public function __construct($log = '/dev/null')
+    public function __construct($logFile = '/dev/null')
     {
-        $this->log = $log;
+        $this->logFile = $logFile;
     }
 
     /**
@@ -40,7 +40,7 @@ class ProcessManager
         // The double & in the command "(.... &)&" will have the same effect as nohup
         // but the pid returned is actually the correct pid (which is not the case when
         // using nohup).
-        $command = '(' . $command.' > ' . $this->log . ' 2>&1 & echo $!)&';
+        $command = '(' . $command.' > ' . $this->logFile . ' 2>&1 & echo $!)&';
         exec($command, $op);
         return (int)$op[0];
     }
