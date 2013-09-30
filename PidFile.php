@@ -133,7 +133,7 @@ class PidFile
      */
     public function releaseLock()
     {
-        if (! is_resource($this->file === null)) {
+        if (! is_resource($this->file)) {
             return false;
         }
 
