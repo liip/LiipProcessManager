@@ -29,7 +29,7 @@ class PidFile
      * Prepares new lock on the file $filename
      * 
      * @param ProcessManager $processManager Process manager instance
-     * @param string $filename The name of the lock file
+     * @param string         $filename       The name of the lock file
      */
     public function __construct(ProcessManager $processManager, $filename)
     {
@@ -39,6 +39,9 @@ class PidFile
 
     /**
      * Acquire a lock on the lock file.
+     *
+     * @throws Exception
+     * @return void
      */
     public function acquireLock()
     {
@@ -57,6 +60,8 @@ class PidFile
      * Write the given PID to the lock file. The file must be locked before!
      *
      * @param string $pid The PID to write to the file
+     *
+     * @return int
      */
     public function setPid($pid)
     {
@@ -65,7 +70,7 @@ class PidFile
         }
 
         ftruncate($this->file, 0);
-        fwrite($this->file, $pid);
+        return fwrite($this->file, $pid);
     }
 
     /**
@@ -85,6 +90,8 @@ class PidFile
     /**
      * Exec a command in the background and return the PID
      * 
+     * @param string $command The command to execute
+     *
      * @return string
      */
     public function execProcess($command)
@@ -95,6 +102,7 @@ class PidFile
     /**
      * Check if the PID written in the lock file corresponds to a running process.
      * The file must be locked before!
+     * 
      * @return boolean
      */
     public function isProcessRunning()
@@ -110,6 +118,8 @@ class PidFile
 
     /**
      * Kill the currently running process
+     * 
+     * @return boolean
      */
     public function killProcess()
     {
@@ -118,17 +128,19 @@ class PidFile
 
     /**
      * Release the lock on the lock file
+     * 
+     * @return boolean
      */
     public function releaseLock()
     {
-        if (! is_resource($this->file)) {
-		    return false;
-	    }
+        if (! is_resource($this->file === null)) {
+            return false;
+        }
 
         flock($this->file, LOCK_UN);
         fclose($this->file);
         @unlink($this->file);
         $this->file = null;
-		return true;
+        return true;
     }
 }
