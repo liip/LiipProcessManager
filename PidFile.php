@@ -27,7 +27,7 @@ class PidFile
 
     /**
      * Prepares new lock on the file $filename
-     * 
+     *
      * @param ProcessManager $processManager Process manager instance
      * @param string         $filename       The name of the lock file
      */
@@ -40,7 +40,7 @@ class PidFile
     /**
      * Acquire a lock on the lock file.
      *
-     * @throws Exception
+     * @throws LockException
      * @return void
      */
     public function acquireLock()
@@ -52,7 +52,7 @@ class PidFile
 
         $this->file = fopen($this->filename, 'a+');
         if (! flock($this->file, LOCK_EX  | LOCK_NB)) {
-            throw new \Exception('Could not lock the pidfile');
+            throw new LockException('Could not lock the pidfile');
         }
     }
 
@@ -66,7 +66,7 @@ class PidFile
     public function setPid($pid)
     {
         if (null === $this->file) {
-            throw new \Exception('The pidfile is not locked');
+            throw new LockException('The pidfile is not locked');
         }
 
         ftruncate($this->file, 0);
@@ -81,7 +81,7 @@ class PidFile
     public function getPid()
     {
         if (null === $this->file) {
-            throw new \Exception('The pidfile is not locked');
+            throw new LockException('The pidfile is not locked');
         }
 
         return file_get_contents($this->filename);
@@ -89,7 +89,7 @@ class PidFile
 
     /**
      * Exec a command in the background and return the PID
-     * 
+     *
      * @param string $command The command to execute
      *
      * @return string
@@ -102,13 +102,13 @@ class PidFile
     /**
      * Check if the PID written in the lock file corresponds to a running process.
      * The file must be locked before!
-     * 
+     *
      * @return boolean
      */
     public function isProcessRunning()
     {
         if (null === $this->file) {
-            throw new \Exception('The pidfile is not locked');
+            throw new LockException('The pidfile is not locked');
         }
 
         $pid = $this->getPid();
@@ -118,7 +118,7 @@ class PidFile
 
     /**
      * Kill the currently running process
-     * 
+     *
      * @return boolean
      */
     public function killProcess()
@@ -128,7 +128,7 @@ class PidFile
 
     /**
      * Release the lock on the lock file
-     * 
+     *
      * @return boolean
      */
     public function releaseLock()

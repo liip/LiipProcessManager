@@ -16,7 +16,7 @@ class ProcessManagerTest extends \PHPUnit_Framework_TestCase
         $processManager = new ProcessManager();
 
         $child_pid = $processManager->execProcess('sleep 10m');
-        
+
         // Assert the 'sleep 10m' command is running
         $out = null;
         $process_running = false;
@@ -44,7 +44,7 @@ class ProcessManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($processManager->isProcessRunning(getmypid()), "ProcessManager reported that my process is not running");
 
         $this->assertFalse($processManager->isProcessRunning('Unexisting_pid'), "ProcessManager reported that an unexisting pid process is running");
-        
+
         $this->assertFalse($processManager->isProcessRunning(''), "ProcessManager reported that an empty pid process is running");
     }
 
