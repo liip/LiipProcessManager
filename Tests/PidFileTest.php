@@ -2,6 +2,7 @@
 
 namespace Nzz\ImportBundle\Tests\Helper;
 
+use Liip\ProcessManager\LockException;
 use Liip\ProcessManager\PidFile;
 use Liip\ProcessManager\ProcessManager;
 
@@ -67,7 +68,7 @@ class PidFileTest extends \PHPUnit_Framework_TestCase
 
         try {
             $helper2->acquireLock();
-        } catch (\Exception $ex) {
+        } catch (LockException $ex) {
             $this->assertEquals('Could not lock the pidfile', $ex->getMessage());
         }
 
@@ -149,19 +150,19 @@ class PidFileTest extends \PHPUnit_Framework_TestCase
 
         try {
             $helper->getPid();
-        } catch (\Exception $ex) {
+        } catch (LockException $ex) {
             $this->assertEquals('The pidfile is not locked', $ex->getMessage());
         }
 
         try {
             $helper->setPid('1234');
-        } catch (\Exception $ex) {
+        } catch (LockException $ex) {
             $this->assertEquals('The pidfile is not locked', $ex->getMessage());
         }
 
         try {
             $helper->isProcessRunning();
-        } catch (\Exception $ex) {
+        } catch (LockException $ex) {
             $this->assertEquals('The pidfile is not locked', $ex->getMessage());
         }
     }
