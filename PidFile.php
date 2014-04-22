@@ -139,7 +139,7 @@ class PidFile
 
         flock($this->file, LOCK_UN);
         fclose($this->file);
-        @unlink($this->file);
+        @unlink($this->filename);
         $this->file = null;
         return true;
     }
