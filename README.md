@@ -9,7 +9,9 @@ http://github.com/liip/LiipProcessManager.git
 
 Here is a simple example
 
+    <?php
     use Liip\ProcessManager\ProcessManager;
+    use Liip\ProcessManager\PidFile;
 
     // run a process in the back ground
     $processManager = new ProcessManager();
